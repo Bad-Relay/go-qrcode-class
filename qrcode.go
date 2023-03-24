@@ -77,6 +77,32 @@ func (q *QRCode) Save(w Writer) error {
 	return w.Write(*q.mat)
 }
 
+func (q *QRCode) GetUnicodeStr() string {
+
+	// Squares for qr
+	bg := "  "
+	fg := "██"
+
+	mat := q.mat
+
+	qr_str := ""
+
+	mat.Iterate(IterDirection_ROW, func(x int, y int, state QRValue) {
+
+		if state.IsSet() {
+			qr_str = qr_str + fg
+		} else {
+			qr_str = qr_str + bg
+		}
+
+		if (x + 1) == mat.width {
+			qr_str = qr_str + "\n"
+		}
+	})
+
+	return qr_str
+}
+
 func (q *QRCode) Dimension() int {
 	if q.mat == nil {
 		return 0

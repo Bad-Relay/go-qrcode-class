@@ -80,6 +80,34 @@ func (q *QRCode) Save(w Writer) error {
 func (q *QRCode) GetUnicodeStr() string {
 
 	// Squares for qr
+	bg := "  "
+	fg := "██"
+
+	mat := q.mat
+
+	qr_str := ""
+
+	mat.Iterate(IterDirection_ROW, func(x int, y int, state QRValue) {
+
+		if state.IsSet() {
+			qr_str = qr_str + fg
+		} else {
+			qr_str = qr_str + bg
+		}
+
+		if (x + 1) == mat.width {
+			qr_str = qr_str + "\n"
+		}
+	})
+
+	return qr_str
+
+}
+
+
+func (q *QRCode) GetHtmlStr() string {
+
+	// Squares for qr
 	bg := "<div style=\"display:inline-block;background-color:#000000;width:4px;height:4px\"></div>"
 	fg := "<div style=\"display:inline-block;background-color:#ffffff;width:4px;height:4px\"></div>"
 
@@ -103,6 +131,7 @@ func (q *QRCode) GetUnicodeStr() string {
 	return "<div>" + qr_str + "</div>"
 
 }
+
 
 func (q *QRCode) Dimension() int {
 	if q.mat == nil {

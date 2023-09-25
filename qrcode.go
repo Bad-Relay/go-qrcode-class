@@ -108,8 +108,8 @@ func (q *QRCode) GetUnicodeStr() string {
 func (q *QRCode) GetHtmlStr() string {
 
 	// Squares for qr
-	fg := "<div style=\"display:inline-block;background-color:#000000;width:4px;height:4px\"></div>"
-	bg := "<div style=\"display:inline-block;background-color:#ffffff;width:4px;height:4px\"></div>"
+	fg := "<div class="qrFG" style=\"display:inline-block;background-color:#000000;width:4px;height:4px\"></div>"
+	bg := "<div class="qrBG" style=\"display:inline-block;background-color:#ffffff;width:4px;height:4px\"></div>"
 
 	mat := q.mat
 
